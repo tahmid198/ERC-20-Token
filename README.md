@@ -1,6 +1,6 @@
 Ethereum allows you to build your own cryptocurrency on their blockchain with a standard called ERC20. This standard allows you to mint your own token and transfer it between wallets.
 
-###Dependencies
+### Dependencies
 1. node package manager (install from node js website or with a command line tool like homebrew, type `brew install node`)
 2. Truffle framework will allow us to create decentralized applications on the Ethereum network with its suite of tools so we can write, test, and deploy smart contracts. (To install go to command and type `npm install -g truffle`)
 3. Ganache, is your personal blockchain that you can use for testing purposes
@@ -10,7 +10,7 @@ Ethereum allows you to build your own cryptocurrency on their blockchain with a 
 
 Use `truffle init` in the command line within your project directory to create a new truffle project. This will create your contract, migration, and test directories including some configuration files.
 
-###Background
+### Background
 The contract directory will be used whenever we create other contracts. The *migration.sol* file is the contract that handles the migrations whenever we deploy our contracts to our blockchain. Deploying smart contracts will create transactions and write to the blockchain changing its state. So whenever we push a contract to the blockhain we are in a sense migrating the blockchains state from not having a smart contract to having it.
 The migration directory is where all of our migrations files will be placed. *1_initial_migration.js* will get runned whenever we deploy our smart contracts. It will take the *migrations.sol* contract from migration directory. Test directory is use to test smart contracts. 
 `truffle-config.js` is used for windows and `truffle.js` is used for macOS
@@ -24,7 +24,7 @@ Whenever you run migrations and deploy contracts to blockchain it will cost gas.
 After deploying contract your new ETH balance will be reflected on Ganache.
 
 
-###Truffle Console
+### Truffle Console
 To open console use `truffle console`. Truffle console is a JS runtime environment used to interact with contract. Because smart contracts are asynchronous in nature, they rely upon the usage of JavaScript promises.
 
 To get address of contract:
@@ -40,13 +40,13 @@ To get totalSupply:
 
 Use `.exit` to exit console.
 
-###Testing
+### Testing
 Testing in Truffle comes bundled with Mocha testing framework and Chai assertion library.
 
 To test run `truffle test`. 
 
-
-###Resources
+ 
+### Resources
 [Guide that i followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
 
 ["Interacting with Deployed Ethereum Contracts in Truffle"](https://medium.com/@blockchain101/interacting-with-deployed-ethereum-contracts-in-truffle-39d7c7040455)
