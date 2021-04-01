@@ -1,3 +1,6 @@
+## ERC-20 Token
+
+### Background
 Ethereum allows you to build your own cryptocurrency on their blockchain with a standard called ERC20. This standard allows you to mint your own token and transfer it between wallets.
 
 ### Dependencies
@@ -10,7 +13,9 @@ Ethereum allows you to build your own cryptocurrency on their blockchain with a 
 
 Use `truffle init` in the command line within your project directory to create a new truffle project. This will create your contract, migration, and test directories including some configuration files.
 
-### Background
+
+### NOTES
+
 The contract directory will be used whenever we create other contracts. The *migration.sol* file is the contract that handles the migrations whenever we deploy our contracts to our blockchain. Deploying smart contracts will create transactions and write to the blockchain changing its state. So whenever we push a contract to the blockhain we are in a sense migrating the blockchains state from not having a smart contract to having it.
 The migration directory is where all of our migrations files will be placed. *1_initial_migration.js* will get runned whenever we deploy our smart contracts. It will take the *migrations.sol* contract from migration directory. Test directory is use to test smart contracts. 
 `truffle-config.js` is used for windows and `truffle.js` is used for macOS
