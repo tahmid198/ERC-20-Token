@@ -38,17 +38,27 @@ To get totalSupply:
 `token.totalSupply().then(function(s){totalSupply=s})` then `totalSupply` will return the total supply of your token. JavaScript will give us a BigNumber, since we are returning units that are to large for JS to handle.
 `totalSupply.toNumber()` will also return our total supply. 
 
+To get addresses:
+
+use `web3.eth.accounts` to see all accounts/addresses that are available. Web3 is a library that allows us to intreact with our smart contracts and blockhain.
+`web3.eth.accounts[0]` will show the account found at index 0 of accounts. 
+
+Use of `web3.eth.accounts` and `web3.eth.accounts[0]` is depreciated in newer versions of Solidity. Instead use `accounts web3.eth.getAccounts()` and `web3.eth.getAccounts( ).then(function(s) {first = s[0];});first` respectively.
+
 Use `.exit` to exit console.
 
 ### Testing
 Testing in Truffle comes bundled with Mocha testing framework and Chai assertion library.
 
-To test run `truffle test`. 
+To test run use `truffle test`. 
 
  
 ### Resources
-[Guide that i followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
+[Guide that I followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
 
 ["Interacting with Deployed Ethereum Contracts in Truffle"](https://medium.com/@blockchain101/interacting-with-deployed-ethereum-contracts-in-truffle-39d7c7040455)
 
 [Javascript promises](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
+
+[ERC-20 standard for tokens](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
+
