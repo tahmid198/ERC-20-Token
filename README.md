@@ -8,7 +8,7 @@ Ethereum allows you to build your own cryptocurrency on their blockchain with a 
 2. Truffle framework will allow us to create decentralized applications on the Ethereum network with its suite of tools so we can write, test, and deploy smart contracts. (To install go to command and type `npm install -g truffle`)
 3. Ganache, is your personal blockchain that you can use for testing purposes
 4. Metamask, a browser extension that allows you to connect to the Ethereum network. Found on Chrome browser. 
-5. Solidity 
+5. Solidity syntax highlighting (you can use Ethereum from Package Control for Sublime 2/3)
 
 
 Use `truffle init` in the command line within your project directory to create a new truffle project. This will create your contract, migration, and test directories including some configuration files.
@@ -65,5 +65,7 @@ To test run use `truffle test`.
 
 [Javascript promises](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
 
-[ERC-20 standard for tokens](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
+[ERC-20 standard for ETH tokens](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
+
+[Solidity v0.5.16 Documentation](https://docs.soliditylang.org/en/v0.5.16/)
 
