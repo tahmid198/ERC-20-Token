@@ -18,11 +18,21 @@ contract MyToken {
 		address indexed _to,	// account that recevied transaction
 		uint256 _value			// amount sent
 	);
-	
+
+	//approve event - events get logged into transaction logs
+	event Approval(
+		address indexed _owner,	// i the owner account A approve, account B the spender to transfer C tokens
+		address indexed _spender,
+		uint256 _value
+		);
 
 	mapping(address => uint256) public balanceOf; 	// map structure called balanceOf.
 													// key==address and return value==uint256, which is balance of address
 													// anytime a token is bought or transferred this mapping is responsible for knowing who has each token 
+	// allowence
+	mapping(address => mapping(address => uint256)) public allowance;	// nested mapping
+																		// mapping(address (my account, all my approvals are tracked by this key) => mapping(address (account that i approve) => uint256 (approved amount))) 
+
 
 	// constructor for smart contract
 	constructor(uint256 _initialSupply) public {  	// public = visibility of function
@@ -55,4 +65,32 @@ contract MyToken {
 		return true;
 
 	}
+
+	// approve - approves of trnasfer by someone else
+	function approve(address _spender, uint256 _value) public returns (bool success) { 	// we approve _spender account to spend _value amount of tokens
+																						// if we are account A we want to approve account B to spend X amount of tokens
+		// allowence
+		allowance[msg.sender][_spender] = _value;
+
+		// approval event
+		emit Approval(msg.sender, _spender, _value);	//msg.sender = account thats calling the function (_owner)
+
+		return true;																						
+	}
+
+	// transferFrom
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

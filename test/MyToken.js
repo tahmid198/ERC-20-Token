@@ -50,8 +50,8 @@ var tokenInstance;
 			
 			assert.equal(receipt.logs.length, 1, 'triggers one event');	// first we say reciept has logs, logs is where our event information is
 			assert.equal(receipt.logs[0].event,'Transfer', 'should be the "Transfer" event');	// we find first log and ensure event is a 'Transfer' event
-			assert.equal(receipt.logs[0].args._from, accounts[0], 'logs the account the tokens are transferred from'); // we make sure event has all required arguments, _from account 0
-			assert.equal(receipt.logs[0].args._to, accounts[1], 'logs the account the tokens are transferred to');	// // we make sure event has all required arguments, _to account 1
+			assert.equal(receipt.logs[0].args._from, accounts[0], 'logs the account the tokens are transferred from'); // we make sure event has all required arguments, _from (account 0)
+			assert.equal(receipt.logs[0].args._to, accounts[1], 'logs the account the tokens are transferred to');	// we make sure event has all required arguments, _to (account 1)
 			assert.equal(receipt.logs[0].args._value, 250000, 'logs the transfer amount')	// we make sure event has all required arguments, _value of 250000
 			
 			return tokenInstance.balanceOf(accounts[1]);	// return balance of account where we sent tokens to
@@ -62,6 +62,32 @@ var tokenInstance;
 			assert.equal(balance.toNumber(), 750000, 'deducts the amount from the sending account');	// since we started with 1000000 tokens in inital account 0, and sent 250000 from it, account 0 sould now have 750000 tokens
 		});
 	});
+
+
+	it('approves tokens for delegated transfer', function() {
+		return MyToken.deployed().then(function(instance) {
+			tokenInstance = instance;
+			return tokenInstance.approve.call(accounts[1], 100);	// we take token contract and call approve function with call, which does not create a actual transaction. And we just inspect return value and not write data to blockchain.
+		}).then(function(success) {
+			assert.equal(success, true, 'it returns true');
+			return tokenInstance.approve(accounts[1], 100, {from: accounts[0]});	// we call approve and create a transaction so it can create a reciept and search its logs, so we can find approve event
+																					// we explicitly specify msg.sender and make from account to 0 otherwise it will be set to default.
+																					// we approve account 1 to spend 100 MyTokens on our behalf account 0
+		}).then(function(receipt) {
+			assert.equal(receipt.logs.length, 1, 'triggers one event');	// first we ensure reciept has logs, logs is where our event information is
+			assert.equal(receipt.logs[0].event,'Approval', 'should be the "Approval" event');	// we find first log and ensure event is a 'Approval' event
+			assert.equal(receipt.logs[0].args._owner, accounts[0], 'logs the account the tokens are authorized by'); // we make sure event has all required arguments, _owner (account 0)
+			assert.equal(receipt.logs[0].args._spender, accounts[1], 'logs the account the tokens are authorized to');	// we make sure event has all required arguments, _spender (account 1)
+			assert.equal(receipt.logs[0].args._value, 100, 'logs the transfer amount')	// we make sure event has all required arguments, _value of 100
+			return tokenInstance.allowance(accounts[0], accounts[1]);	// we check allowance to see that our account 0 approved account 1 to spennd 100 MyTokens
+		}).then(function(allowance) {
+			assert.equal(allowance.toNumber(), 100, 'stores the allowance for delegated transfer');
+		});
+	});
+
+
+
+
 
 });
  
