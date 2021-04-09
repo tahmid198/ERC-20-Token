@@ -1,7 +1,7 @@
 ## ERC-20 Token
 
 ### Background
-Ethereum allows you to build your own cryptocurrency on their blockchain with a standard called [ERC-20 standard for ETH tokens](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md). This standard allows you to mint your own token and transfer it between wallets.
+Ethereum allows you to build your own cryptocurrency on their blockchain with a standard called [ERC-20 token standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md). This standard allows you to mint your own token and transfer it between wallets.
 We will be building out the reuired functionality specified in this standard so our token is complient with the ERC20 standard. 
 
 ### Dependencies
@@ -20,7 +20,7 @@ approve will allow someone to approve another account to spend tokens on there b
 
 ### Notes
 
-All functions and variables **must** follow naming convention as shown in the [ERC-20 standard for ETH tokens](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
+All functions and variables **must** follow naming convention as shown in the [ERC-20 token standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
 
 The contract directory will be used whenever we create other contracts. The *migration.sol* file is the contract that handles the migrations whenever we deploy our contracts to our blockchain. Deploying smart contracts will create transactions and write to the blockchain changing its state. So whenever we push a contract to the blockhain we are in a sense migrating the blockchains state from not having a smart contract to having it.
 The migration directory is where all of our migrations files will be placed. *1_initial_migration.js* will get runned whenever we deploy our smart contracts. It will take the *migrations.sol* contract from migration directory. Test directory is use to test smart contracts. 
@@ -66,7 +66,7 @@ To test run use `truffle test`.
  
 ### Resources
 
-[ERC-20 standard for ETH tokens](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
+[ERC-20 token standard ](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
 
 [Guide that I followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
 
