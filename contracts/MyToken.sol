@@ -66,7 +66,7 @@ contract MyToken {
 
 	}
 
-	// approve - approves of trnasfer by someone else
+	// approve - approves a delegated transfer
 	function approve(address _spender, uint256 _value) public returns (bool success) { 	// we approve _spender account to spend _value amount of tokens
 																						// if we are account A we want to approve account B to spend X amount of tokens
 		// allowence
@@ -78,7 +78,29 @@ contract MyToken {
 		return true;																						
 	}
 
-	// transferFrom
+	// transferFrom - preforms delegated transfer
+	function transferFrom(address _from, address _to, uint256 _value) public returns (bool auccess) {
+
+		// require _from has enough tokens
+		require(_value <= balanceOf[_from]);
+		
+		// require allowance is big enough
+		require(_value <= allowance[_from][msg.sender]);	// were reading out of allowance mapping
+		
+		// change the balance
+		balanceOf[_from] -= _value;
+		balanceOf[_to] += _value;
+		
+		// update the allowance
+		allowance[_from][msg.sender] -= _value;	//msg.sender = the person spending the tokens 
+		
+		// transfer event
+		emit Transfer(_from, _to, _value);
+		
+		// return a boolean
+		return true;
+
+	}
 
 
 

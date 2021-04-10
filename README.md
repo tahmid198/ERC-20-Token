@@ -16,7 +16,7 @@ Use `truffle init` in the command line within your project directory to create a
 
 <!-- ### Build
 
-approve will allow someone to approve another account to spend tokens on there behalf. --> 
+approve function will let us approve a delegated transfer, the amount being transferred will be stored in a allowence. transferForm will allow us to execute that transfer.  --> 
 
 ### Notes
 
