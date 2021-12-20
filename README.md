@@ -45,9 +45,10 @@ To open the console use the `truffle console`command. Truffle console is a JS ru
 
 
 <details>
-<summary>*To get attributes of contract:*</summary>
+<summary>To get attributes of contract:</summary>
 <br>
-`MyToken.deployed().then(function(instance){tokenInstance=instance})`, `MyToken.deployed()` will give us a deployed instance of our contract. We then save the value of that instance into the variable token. `.deployed()` will return a promise, when the promise completes we call the `then()` function. We will get a deployed instance of our contract and set it to `tokenInstance`. Note, `MyToken` was created in our migrations.
+
+First create a tokenInstance by doing,`MyToken.deployed().then(function(instance){tokenInstance=instance})`, `MyToken.deployed()` will give us a deployed instance of our contract. We then save the value of that instance into the variable `tokenInstance`. `.deployed()` will return a promise, when the promise completes we call the `then()` function. We will get a deployed instance of our contract and set it to `tokenInstance`. Note, `MyToken` was created in our migrations.
 
 We can also view the token instance by entering `tokenInstance` into our console.
 
@@ -59,28 +60,40 @@ All the following were declared in our `MyToken.sol` file:
 `tokenInstance.standard()` will return the standard of our token.
 </details>
 
-*To get totalSupply:*
+<details>
+<summary>How to get totalSupply:</summary>
+<br>
 
-We can then use `tokenInstance` to find its total supply. 
+We can then use the `tokenInstance` to find its total supply. 
 `tokenInstance.totalSupply().then(function(s){totalSupply=s})` the `totalSupply` will return the total supply of your token. JavaScript will give us a BigNumber type, since we are returning units that are too large for JS to handle.
 `totalSupply.toNumber()` will also return our total supply. 
 
 When our `MyToken.sol` contract got deployed our constructor was executed which took `_initalSupply` as a parameter and set the `totalSupply` with it. `_initalSupply` was passed in our `_deploy_contracts.js`.
-In the same constructor we also set the initial supply equal to the balance of the administrator, the one that deployed it. 
+In the same constructor we also set the initial supply equal to the balance of the administrator, the one that deployed it.
+</details>
 
-*To get addresses and using web3:*
+
+<details>
+<summary>How to get addresses and using web3:</summary>
+<br>
 
 web3 is a library that allows us to interact with the blockchain.
 
-use `web3.eth.accounts()` to see all accounts/addresses that are available. Web3 is a library that allows us to interact with our smart contracts and blockchain.
+Use `web3.eth.accounts()` to see all accounts/addresses that are available. 
+
 `web3.eth.accounts[0]` will show the account found at index 0 of accounts. 
 
-Use of `web3.eth.accounts()` and `web3.eth.accounts[0]` is deprecated in newer versions of Solidity. Instead use `accounts = web3.eth.getAccounts()` and `web3.eth.getAccounts().then(function(s) {first = s[0];});` then, `first` respectively.
+Use of `web3.eth.accounts()` and `web3.eth.accounts[0]` is depreciated in newer versions of Solidity. Instead use `accounts = web3.eth.getAccounts()` and `web3.eth.getAccounts().then(function(s) {first = s[0];});` then, `first` respectively to get address of first.
 
 Doing `web3.eth.getAccounts().then(function(acc){ accounts = acc })`, then accounts[0],accounts[1], etc.
 will give account addresses by index. 
 
-*Checking balance*
+</details>
+
+
+<details>
+<summary>How to check balance:</summary>
+<br>
 
 First we need to get an account to its check balance .
 `web3.eth.getAccounts().then(function(s) {admin = s[0];});`, admin will contain our account address. 
@@ -90,8 +103,13 @@ We can then do `tokenInstance.balanceOf(admin)` to view the supply of admin.
 
 `tokenInstance.balanceOf(admin).then(function(bal){balance = bal;})`, then `balance.toNumber()` to also view the supply of admin.
 
+</details>
 
-*Transfers*
+
+
+<details>
+<summary>Transfers</summary>
+<br>
 
 First we get an account that will receive tokens from the transfer. 
 `web3.eth.getAccounts().then(function(s) {receiver = s[1];});`, this will set our receiver to the address at s[1].
@@ -100,17 +118,28 @@ We can then call a transfer by doing `tokenInstance.transfer(receiver, 1, {from:
 
 We can then check the balance of the receiver, which has increased by 1, with `tokenInstance.balanceOf(receiver)` and the balance of admin, which has decreased by 1, by  `tokenInstance.balanceOf(admin)` which has decreased by 1.
 
-*Approvals*
+</details>
+
+
+<details>
+<summary>Approvals</summary>
+<br>
+
 First do, `web3.eth.getAccounts().then(function(acc){ accounts = acc })` to access account addresses by index. 
 
 `tokenInstance.approve(accounts[1], 100, {from: admin})` will trigger an approval on accounts[1] for 100 tokens and create a receipt. 
 
 `tokenInstance.allowance(accounts[0], accounts[1])` to check allowance that was approved for expenditure. This is saying accounts[1] is allowed to spend a certain amount of tokens on accounts[0] behalf. Following the syntax of 
 - `mapping(address => mapping(address => uint256)) public allowance` 
+</details>
 
-Use `.exit` to exit the console.
 
-*Delegated Transfers*
+
+
+<details>
+<summary>Delegated Transfers</summary>
+<br>
+
 First do, `web3.eth.getAccounts().then(function(acc){ accounts = acc })` to access account addresses by index.
 
 Set addresses for a fromAccount, toAccount, and spendingAccount
@@ -125,6 +154,12 @@ Lastly, we will trigger the delegated transfer by: `tokenInstance.transferFrom(f
 
 Allowance of `spendingAccount` should not be 0. You can check by doing `tokenInstance.allowance(fromAccount, spendingAccount)` and the balance of `toAccount` should have increased by 10. You can check by doing `tokenInstance.balanceOf(toAccount)`.
 
+</details>
+
+
+
+
+Use `.exit` to exit the console.
 
 ### Testing
 Testing in Truffle comes bundled with the Mocha testing framework and Chai assertion library.
