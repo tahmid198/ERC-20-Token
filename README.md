@@ -87,7 +87,7 @@ Use `web3.eth.accounts()` to see all accounts/addresses that are available.
 
 `web3.eth.accounts[0]` will show the account found at index 0 of accounts. 
 
-Use of `web3.eth.accounts()` and `web3.eth.accounts[0]` is depreciated in newer versions of Solidity. Instead use `accounts = web3.eth.getAccounts()` and `web3.eth.getAccounts().then(function(s) {first = s[0];});` then, `first` respectively to get address of first.
+Use of `web3.eth.accounts()` and `web3.eth.accounts[0]` is deprecated in newer versions of Solidity. Instead use `accounts = web3.eth.getAccounts()` and `web3.eth.getAccounts().then(function(s) {first = s[0];});` then, `first` respectively to get address of first.
 
 Doing `web3.eth.getAccounts().then(function(acc){ accounts = acc })`, then accounts[0],accounts[1], etc.
 will give account addresses by index. 
