@@ -1,5 +1,8 @@
 pragma solidity ^0.5.16; // declare version of solidity
 
+/*The name of my token is MyToken*/
+
+
 contract MyToken {
 	
 	
@@ -42,19 +45,19 @@ contract MyToken {
 										// convention is to use underscore for local variables. Not state/global variables
 		// allocate the inital supply
 		balanceOf[msg.sender] = _initialSupply;	// msg.sender is the account that deployed the contract
-												// msg is a global variable in Solidity that has diffrent values, in this case sender is the address that the function calls. 
-												// when we run migrations in devlopment it will be the first account in Ganache which Truffle will default to.
+												// msg is a global variable in Solidity that has diffrent properties, in this case sender is the address that the function calls. 
+												// when we run migrations in development it will be the first account in Ganache which Truffle will default to.
 												// whats happening is that we write the balance of the first account to whatever initalSupply we initalize our contract with.
 												// this function associated with the balanceOf public variable provided by the ERC-20 standard    
 	}
 
 	// transfer function
 	function transfer(address _to, uint256 _value) public returns (bool success) {  // address we want to transfer to, and number of tokens we want to transfer 
-		// exception if account does not have enough
+		// assert sender has enough coins in their account
 		require(balanceOf[msg.sender] >= _value); 	// `require` is going to allow function execution to continue if statment is true, if false it will throw an error and stop function execution
 													// msg.sender -> the person whose calling function; here we read balance from persons account
 													// since we are writing to blockchain, we will be using gas, if statment evaluates to false, unused gas will be refunded to sender
-		//Transfer the balance
+		// transfer the balance
 		balanceOf[msg.sender] -= _value; // decrement balance of sender by amount sent
 		balanceOf[_to] += _value; // increment balance of recevier by amount received
 
@@ -99,20 +102,5 @@ contract MyToken {
 		
 		// return a boolean
 		return true;
-
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
