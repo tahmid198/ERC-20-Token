@@ -1,6 +1,7 @@
 ## ERC-20 Token
 
 ### Background
+
 Ethereum allows you to build your own cryptocurrency on their blockchain with a standard called [ERC-20 token standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md). ERC-20 is an API standard that governs how an Ethereum token should be built. This standard allows you to mint your own token, transfer it between wallets, and hold an initial token sale. This standard also allows your token to be accepted across various applications. This means support across different wallets and different cryptocurrency exchanges. 
 
 We will be building out the required functionality specified with this standard so our token is compliant with the ERC20 standard and deploy it on a test network (not the main Ethereum network) so we do not have to worry about cost.
@@ -8,6 +9,7 @@ We will be building out the required functionality specified with this standard 
 Your token, token sale, client side and backend will be on the blockchain and decentralized. 
 
 ### Dependencies
+
 1. node package manager (npm) (install from node js website or with a command line tool like homebrew, type `brew install node`).
 2. Truffle framework will allow us to create decentralized applications on the Ethereum network with its suite of tools so we can write, test, and deploy smart contracts. (To install go to command and type `npm install -g truffle`).
 3. Ganache, is your local personal blockchain that you can use for testing purposes. (Install directly from their website).
@@ -22,6 +24,7 @@ Use `truffle init` in the command line within your project directory to create a
 approve function will let us approve a delegated transfer, the amount being transferred will be stored in a allowance. transferForm will allow us to execute that transfer.  --> 
 
 ### File Breakdown
+
 - `MyToken.sol` is the smart contract that will implement the ERC-20 standard and govern behavior for your token
 - `MyTokenSale.sol` will handle the token sale part of this project
 - `app.js` will handle the sale of tokens, display balance, and etc.
@@ -37,6 +40,7 @@ Test directory is used to test our smart contracts.
 Make sure to first set *Development Configurations* in your truffle-config file. Four digit port number can be found at the end of your Ganache RPC Server, as well as the host.
 
 ### Truffle Console
+
 To open the console use the `truffle console`command. Truffle console is a JS runtime environment used to interact with contracts. Because smart contracts are asynchronous in nature, they will rely upon the usage of JavaScript promises.
 
 #### Examples Within Truffle Console: 
@@ -45,7 +49,7 @@ To open the console use the `truffle console`command. Truffle console is a JS ru
 
 
 <details>
-<summary>To get attributes of contract:</summary>
+<summary>How to get attributes of contract:</summary>
 <br>
 
 First create a tokenInstance by doing,`MyToken.deployed().then(function(instance){tokenInstance=instance})`, `MyToken.deployed()` will give us a deployed instance of our contract. We then save the value of that instance into the variable `tokenInstance`. `.deployed()` will return a promise, when the promise completes we call the `then()` function. We will get a deployed instance of our contract and set it to `tokenInstance`. Note, `MyToken` was created in our migrations.
@@ -162,6 +166,7 @@ Allowance of `spendingAccount` should not be 0. You can check by doing `tokenIns
 Use `.exit` to exit the console.
 
 ### Testing
+
 Testing in Truffle comes bundled with the Mocha testing framework and Chai assertion library.
 
 To test run use `truffle test`. 
@@ -170,6 +175,7 @@ Testing smart contracts is very important. Smart contracts and the blockchain ar
 
 
 ### Notes
+
 All functions and variables **must** follow the naming convention as shown in the [ERC-20 token standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
 
 Smart contracts is code that gets executed on the blockchain. It will be where the logic of your token and token sale will live. Reading, writing, behavior (buy, sale, transfer, etc), basic attributes (name, symbol, price, supply, etc) all exist in the contract.
