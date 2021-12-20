@@ -39,13 +39,14 @@ Make sure to first set *Development Configurations* in your truffle-config file.
 ### Truffle Console
 To open the console use the `truffle console`command. Truffle console is a JS runtime environment used to interact with contracts. Because smart contracts are asynchronous in nature, they will rely upon the usage of JavaScript promises.
 
-### Examples:
-#### Within Truffle Console:
+#### Examples Within Truffle Console: 
 
 `truffle migrate` and `truffle migrate -- reset` will allow us to push contracts onto the Ethereum blockchain (either local, tesnet or mainnet) and help us link contracts with other contracts as well as populate them with initial data
 
-*To get attributes of contract:*
 
+<details>
+<summary>*To get attributes of contract:*</summary>
+<br>
 `MyToken.deployed().then(function(instance){tokenInstance=instance})`, `MyToken.deployed()` will give us a deployed instance of our contract. We then save the value of that instance into the variable token. `.deployed()` will return a promise, when the promise completes we call the `then()` function. We will get a deployed instance of our contract and set it to `tokenInstance`. Note, `MyToken` was created in our migrations.
 
 We can also view the token instance by entering `tokenInstance` into our console.
@@ -56,7 +57,7 @@ All the following were declared in our `MyToken.sol` file:
 `tokenInstance.name()` will return the name of our token.
 `tokenInstance.symbol()` will return the symbol of our token.
 `tokenInstance.standard()` will return the standard of our token.
-
+</details>
 
 *To get totalSupply:*
 
