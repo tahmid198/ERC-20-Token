@@ -185,6 +185,8 @@ To run migrations use `truffle migrate`  on the terminal. You can use the `--res
 Whenever you run migrations and deploy contracts to blockchain it will cost gas. Reading from Ethereum blockchain is free, writing to it will cost ETH.
 After deploying the contracts your new ETH balance will be reflected on Ganache. Ganache will always use the first address by default.
 
+Just like wallets can have tokens, so can smart contracts. We have to give our token sale contract tokens.
+
  
 ### Resources
 
@@ -194,6 +196,8 @@ After deploying the contracts your new ETH balance will be reflected on Ganache.
 [Solidity Documentation](https://docs.soliditylang.org/en/develop/)
 
 [Truffle Suite Documentation](https://trufflesuite.com/docs/index.html)
+
+[DSMath for safe arithmetic] (https://github.com/dapphub/ds-math)
 
 [Guide that I followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
 
