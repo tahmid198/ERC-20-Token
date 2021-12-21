@@ -4,7 +4,7 @@ import "./MyToken.sol";
 
 contract MyTokenSale {
 	address payable admin; // admin does not have public visiblity becasue we do not want to expose admin address
-	MyToken public tokenContract; // solidity will give a tokenContract() function for free because variable is made public
+	MyToken public tokenContract; // solidity will give a getter tokenContract() function for free because variable is made public
 	uint256 public tokenPrice;
 	uint256 public tokensSold; // keep track of number of token sold
 
@@ -29,20 +29,36 @@ contract MyTokenSale {
 	function buyTokens(uint256 _numberOfTokens) public payable { // made public so visible to public interface, allowing user interaction. 
 																// function made payable so it can process transactions.
 		
-		require(msg.value == multiply(_numberOfTokens, tokenPrice)); // require that value is equal to tokens (help prevent people from overpaying or underpaying for thier token amount)
-		 													// msg is a global variable with different properties such as sender and value
-															// msg.value is amount of wei function is sending
-		
-		require(tokenContract.balanceOf(address(this)) >= _numberOfTokens);	// require that contract has enough tokens (take some tokens from token supply and give it to this contract)
+		// require that value is equal to tokens (help prevent people from overpaying or underpaying for thier token amount)
+		require(msg.value == multiply(_numberOfTokens, tokenPrice)); // msg is a global variable with different properties such as sender and value
+																	// msg.value is amount of wei function is sending
+		// require that contract has enough tokens (take some tokens from token supply and give it to this contract)
+		require(tokenContract.balanceOf(address(this)) >= _numberOfTokens);	
 
-		require(tokenContract.transfer(msg.sender, _numberOfTokens));	// require that a transfer is successful
-																		// our buy functionality
-		
-		tokensSold += _numberOfTokens; 	// keep track of tokens sold
-		 								// whenever someone buys tokens increment number of tokens sold
+		// require that a transfer is successful
+		require(tokenContract.transfer(msg.sender, _numberOfTokens)); // our buy functionality
+	
+		// keep track of tokens sold
+		tokensSold += _numberOfTokens; // whenever someone buys tokens increment number of tokens sold
 
-		emit sell(msg.sender, _numberOfTokens); // trigger a sell event
-										// buyer is the account that is calling the function (msg.sender)
+		// trigger a sell event
+		emit sell(msg.sender, _numberOfTokens);	// buyer is the account that is calling the function (msg.sender)
+	}
+
+	// ending MyToken tokenSale
+	function endSale() public {
+		// require admin to only perform this task
+		require(msg.sender == admin); 
+
+		// at end of sale transfer remaining tokens to admin
+		require(tokenContract.transfer(address(admin), tokenContract.balanceOf(address(this))));
+		
+		// destory this contract - will reset everything
+		// selfdestruct(payable(admin));
+
+		// UPDATE: Let's not destroy the contract here
+        // Just transfer the balance to the admin
+         admin.transfer(address(this).balance);
 	}
 }
 
