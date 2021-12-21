@@ -6,6 +6,7 @@ contract('MyTokenSale', function(accounts){
 	var tokenSaleInstance;
 	var tokenInstance;
 	var admin = accounts[0];
+	//console.log(admin);
 	var buyer = accounts[1];
 	var numberOfTokens;
 	var tokenPrice = 1000000000000000; // in wei (wei is smallest subdivesion of ether; a mesurment tool basically)
@@ -60,6 +61,36 @@ contract('MyTokenSale', function(accounts){
 			return tokenSaleInstance.buyTokens(800000, {from: buyer, value: numberOfTokens * tokenPrice }); // purchase more tokens then are available in the contract (750000) and test for failure
 		}).then(assert.fail).catch(function(error){
 			assert(error.message.indexOf('revert') >= 0, 'cannot purchase more tokens than available');
+		});
+	});
+
+	it('ends token sale', function(){
+		return MyToken.deployed().then(function(instance){
+			// grab token instance first
+			tokenInstance = instance;
+			//console.log(tokenSaleInstance.address);
+			return MyTokenSale.deployed();
+		}).then(function(instance) {
+			// then grab token sale instance
+			tokenSaleInstance = instance;
+			//try to end sale from account other than the admin
+			return tokenSaleInstance.endSale({from: buyer});
+		}).then(assert.fail).catch(function(error) {
+			assert(error.message.indexOf('revert') >= 0, 'must be admin to end sale');
+			// end sale as admin
+			return tokenSaleInstance.endSale({from: admin});
+		}).then(function(receipt) {
+			return tokenInstance.balanceOf(admin);
+		}).then(function(balance) {
+			assert.equal(balance.toNumber(), 999990, 'returns all unsold tokens to admin');
+			// check token price was reset to 0 when endSale is called
+      		//return tokenInstance.balanceOf(tokenSaleInstance.address); // balanceOf return number of tokens
+           return web3.eth.getBalance(tokenSaleInstance.address) //  web3.eth.getBalance returns value of eth in wei
+       	//     console.log(balance);
+	     	 // assert.equal(balance, 0);
+		}).then(function(balance) {
+			console.log(balance);
+		   assert.equal(balance, 0);
 		});
 	});
 
