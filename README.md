@@ -197,7 +197,7 @@ Just like wallets can have tokens, so can smart contracts. We have to give our t
 
 [Truffle Suite Documentation](https://trufflesuite.com/docs/index.html)
 
-[DSMath for safe arithmetic] (https://github.com/dapphub/ds-math)
+[DSMath for safe arithmetic](https://github.com/dapphub/ds-math)
 
 [Guide that I followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
 
