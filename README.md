@@ -15,6 +15,10 @@ Your token, token sale, client side and backend will be on the blockchain and de
 3. Ganache, is your local personal blockchain that you can use for testing purposes. (Install directly from their website).
 4. Metamask, a browser extension that allows you to connect to the Ethereum network. (Found on Chrome browser).
 5. Solidity syntax highlighting (you can use Ethereum from Package Control for Sublime 2/3)
+6. lite-server is used as our development server.
+7. Bootstrap CDN
+8. Web3 library so our client can communicate with the blockchain
+9. truffle-contract: a js library that allows us to interact with our contracts
 
 
 Use `truffle init` in the command line within your project directory to create a new truffle project. This will create your contract, migration, and test directories including some configuration files.
@@ -28,6 +32,7 @@ approve function will let us approve a delegated transfer, the amount being tran
 - `MyToken.sol` is the smart contract that will implement the ERC-20 standard and govern behavior for your token
 - `MyTokenSale.sol` will handle the token sale part of this project
 - `app.js` will handle the sale of tokens, display balance, and etc.
+- Lite-Server is dependent on BrowserSync (allows use access files and directories), so we must create a `bs-config.json`
 
 
 The contract directory will be used whenever we create other smart contracts(such as token contract and token sale contract). The *migration.sol* file is the contract that handles the migrations whenever we deploy our contracts to our blockchain. Deploying smart contracts will create transactions and write to the blockchain changing its state. So whenever we push a contract to the blockchain we are in a sense migrating the blockchains state from not having a smart contract to having it. This is why we need a migrations directory.
@@ -196,8 +201,9 @@ Just like wallets can have tokens, so can smart contracts. We have to give our t
 [Solidity Documentation](https://docs.soliditylang.org/en/develop/)
 
 [Truffle Suite Documentation](https://trufflesuite.com/docs/index.html)
-
 [DSMath for safe arithmetic](https://github.com/dapphub/ds-math)
+[lite-server](https://github.com/johnpapa/lite-server)
+[Bootstrap CDn version 3.3](https://getbootstrap.com/docs/3.3/getting-started/#download)
 
 [Guide that I followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
 
