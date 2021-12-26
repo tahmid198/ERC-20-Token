@@ -13,13 +13,15 @@ Your token, token sale, client side and backend will be on the blockchain and de
 1. node package manager (npm) (install from node js website or with a command line tool like homebrew, type `brew install node`).
 2. Truffle framework will allow us to create decentralized applications on the Ethereum network with its suite of tools so we can write, test, and deploy smart contracts. (To install go to command and type `npm install -g truffle`).
 3. Ganache, is your local personal blockchain that you can use for testing purposes. (Install directly from their website).
-4. Metamask, a browser extension that allows you to connect to the Ethereum network. (Found on Chrome browser).
+4. Metamask, a browser extension that allows you to connect to the Ethereum network. Allowing us to talk to the blockhain from our browser(Found on Chrome browser).
 5. Solidity syntax highlighting (you can use Ethereum from Package Control for Sublime 2/3)
 6. lite-server is used as our development server.
 7. Bootstrap CDN
 8. Web3 library so our client can communicate with the blockchain
 9. truffle-contract: a js library that allows us to interact with our contracts
 
+
+`npm run dev` to run server
 
 Use `truffle init` in the command line within your project directory to create a new truffle project. This will create your contract, migration, and test directories including some configuration files.
 
@@ -178,6 +180,37 @@ To test run use `truffle test`.
 
 Testing smart contracts is very important. Smart contracts and the blockchain are meant to be immutable. So it is important that they are bug free. If they are deployed with a bug, then we will have to disable it and then deploy another.
 
+### Client Side
+
+Connect to local network with Metamask. You will need to create a Metamask account and create a Custom RPC and enter your Ganace URL with port and save it inorder to connect to Ganace.
+
+You will also need to import an account using a Ganace private key.
+
+We will need to setup the application by provisioning some tokens to the myTokenSale contract. We do that manually in the Truffle console.
+
+
+<details>
+<summary>Transfering tokens to tokenSale contract</summary>
+<br>
+
+Do `MyTokenSale.deployed().then(function(i){tokenSale=i});` to get tokenSale, enter `tokenSale` to view tokenSale data.
+
+Do `MMyToken.deployed().then(function(i){token=i});` to get tokenSale, enter `token` to view tokenSale data.
+
+set tokens available `tokenAvailable = 750000`.
+
+set admin account that contians all tokens 
+`web3.eth.getAccounts().then(function(acc){ accounts = acc });`
+`admin = accounts[0];`
+
+transfer token from admin account to tokenSale address and a recipt should print.
+`token.transfer(tokenSale.address, tokenAvailable, {from: admin})`
+
+After transfering tokens from admin account to tokensSaleContract, admins account should have 250000 tokens and this amount should display in our MyToken ICO SALE page.
+
+Check balance `token.balanceOf(tokenSale.address)`
+
+</details>
 
 ### Notes
 
@@ -191,6 +224,14 @@ Whenever you run migrations and deploy contracts to blockchain it will cost gas.
 After deploying the contracts your new ETH balance will be reflected on Ganache. Ganache will always use the first address by default.
 
 Just like wallets can have tokens, so can smart contracts. We have to give our token sale contract tokens.
+
+Metamask will help our browser comunitcate with the blockchain because most browsers by default wont talk to the blockchain.
+Metamask will talk to web3, injecting an http provider into our browser that allows our browser to communicate with our client side that will talk to the blockchain.
+
+We use truffle-contract as a dependency for our client side and it will hepl use interact with contracts. Truffle contract will know how to use our contracts JSON files and its ABI's.
+
+
+
 
  
 ### Resources
