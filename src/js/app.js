@@ -18,7 +18,7 @@ App = {
 				// if a web3 instance is already provided by Meta Mask.
 				App.web3Provider = web3.currentProvider;
 
-				 window.ethereum.enable(); //  makes a popup UI request to connect your dApp to MetaMask, and window.web3 becomes the updated version.
+				 //window.ethereum.enable(); //  makes a popup UI request to connect your dApp to MetaMask, and window.web3 becomes the updated version.
 				 // window.ethereum.sendAsync('eth_requestAccounts');
 
 				web3 = new Web3(web3.currentProvider);
@@ -48,7 +48,6 @@ App = {
 			});
 		})
 	},
-
 	render: function() { 
 		// if app is loading dont show content
 		if(App.loading) { // if true we will skip step.
@@ -88,26 +87,43 @@ App = {
 			$('.tokens-sold').html(App.tokensSold);
 			$('.tokens-available').html(App.tokensAvailable);
 
-			var progressPercent = (Math.ceil(App.tokensSold / App.tokensAvailable)) * 100;
+			var progressPercent = (Math.ceil(App.tokensSold) / App.tokensAvailable) * 100;
 			// console.log(progressPercent);
 			$('#progress').css('width', progressPercent + '%');
 
 			// load token contract and balance
 			App.contracts.MyToken.deployed().then(function(instance) {
-				myTokenInstance = instance;
-				return myTokenInstance.balanceOf(App.account);
-				}).then(function(balance) {
-					$('.mytoken-balance').html(balance.toNumber())
-				
-					App.loading = false; // once loaded show content
-					loader.hide();
-					content.show();
-				})
+			myTokenInstance = instance;
+			return myTokenInstance.balanceOf(App.account);
+			}).then(function(balance) {
+				$('.mytoken-balance').html(balance.toNumber())
+			
+				App.loading = false; // once loaded show content
+				loader.hide();
+				content.show();
+			})
+		});
+	},
+
+	buyTokens: function(){
+		$('#content').hide(); 
+		$('#loader').show();
+		var numberOfTokens = $('#numberOfTokens').val(); // get values of numberoftokens from input
+		App.contracts.MyTokenSale.deployed().then(function(instance) {
+			return instance.buyTokens(numberOfTokens, {
+				from: App.account,
+				value: numberOfTokens * App.tokenPrice,
+				gas: 100000 // gas limit
+				// gas value 50000 gas value is very low change to 100000 for test purpose
 			});
-		}
+		}).then(function(result) {
+			console.log("Tokens bought...")
+			$('from').trigger('reset') // reset number of tokens in form
+			$('#content').show();
+			$('#loader').hide();
+		});
 	}
-
-
+}
 
 // whenever window loads initilize our app
 $(function() {
