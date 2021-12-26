@@ -27,6 +27,7 @@ App = {
 				App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
 				web3 = new Web3(App.web3Provider);
 			}
+
 			return App.initContracts();
 		}, 
 		initContracts: function() {
@@ -44,8 +45,24 @@ App = {
 				App.contracts.MyToken.deployed().then(function(myToken) {
 					console.log("My Token Address: ", myToken.address); // should print address proving that our client side application is talking to the blockchain
 				});
+
+				App.listenForEvents(); // perform this after contracts are init
 				return App.render();
 			});
+		})
+	},
+
+	// listen for events emitted form the contract
+	listenForEvents: function(){
+		App.contracts.MyTokenSale.deployed().then(function(instance) {
+			// watch sell event 
+			instance.sell({}, {
+				fromBlock: 0,
+				toBlock: 'latest',
+			}).watch(function(error, event) {
+				console.log("event triggered", event);
+				App.render(); // reload everything
+			})
 		})
 	},
 	render: function() { 
@@ -119,8 +136,9 @@ App = {
 		}).then(function(result) {
 			console.log("Tokens bought...")
 			$('from').trigger('reset') // reset number of tokens in form
-			$('#content').show();
-			$('#loader').hide();
+		
+			// wait for sell event
+
 		});
 	}
 }
