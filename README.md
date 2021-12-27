@@ -211,6 +211,7 @@ We will need to setup the application by provisioning some tokens to the myToken
 > Check balance `token.balanceOf(tokenSale.address)`
 
 </details>
+
 Purchasing tokens on ICO website:
 
 ![Image Walkthrough](./images/tokenSaleSite.gif)
@@ -219,7 +220,14 @@ Showing account balance in Truffle console:
 
 ![Image Walkthrough](./images/newbalanceInTruffle.gif)
 
+
 ### Deploying to Rinkeby Test Network With Geth
+
+**This is incomplete and still being worked on. My laptop does not have enough diskspace for me to do this.**
+
+<details>
+<summary>Rinkeby Test Network With Geth</summary>
+<br>
 
 There are different test networks we can use. We will be using the Rinkeby Test Network.
 
@@ -261,6 +269,7 @@ Set `var tokensAvailable = 750000`. Get the tokensSale address which we can find
 
 set `var tokenSaleAddress = 0x0`.
 
+</details>
 
 ### Notes
 
