@@ -13,12 +13,14 @@ Your token, token sale, client side and backend will be on the blockchain and de
 1. node package manager (npm) (install from node js website or with a command line tool like homebrew, type `brew install node`).
 2. Truffle framework will allow us to create decentralized applications on the Ethereum network with its suite of tools so we can write, test, and deploy smart contracts. (To install go to command and type `npm install -g truffle`).
 3. Ganache, is your local personal blockchain that you can use for testing purposes. (Install directly from their website).
-4. Metamask, a browser extension that allows you to connect to the Ethereum network. Allowing us to talk to the blockhain from our browser(Found on Chrome browser).
+4. Metamask, a browser extension that allows you to connect to the Ethereum network. Allowing us to talk to the blockchain from our browser(Found on Chrome browser).
 5. Solidity syntax highlighting (you can use Ethereum from Package Control for Sublime 2/3)
 6. lite-server is used as our development server.
 7. Bootstrap CDN
 8. Web3 library so our client can communicate with the blockchain
 9. truffle-contract: a js library that allows us to interact with our contracts
+10. Go Ethereum (Geth), a Go implementation of Ethereum. (you can install with homebrew by doing `brew tap ethereum/ethereum`, and then `brew install ethereum`). Do `which geth` and `get version` to check it downloaded properly
+
 
 
 `npm run dev` to run server
@@ -27,7 +29,7 @@ Use `truffle init` in the command line within your project directory to create a
 
 <!-- ### Build
 
-approve function will let us approve a delegated transfer, the amount being transferred will be stored in a allowance. transferForm will allow us to execute that transfer.  --> 
+the approve function will let us approve a delegated transfer, the amount being transferred will be stored in an allowance. transferForm will allow us to execute that transfer.  --> 
 
 ### File Breakdown
 
@@ -190,7 +192,7 @@ We will need to setup the application by provisioning some tokens to the myToken
 
 
 <details>
-<summary>Transfering tokens to tokenSale contract</summary>
+<summary>Transferring tokens to tokenSale contract</summary>
 <br>
 
 Do `MyTokenSale.deployed().then(function(i){tokenSale=i});` to get tokenSale, enter `tokenSale` to view tokenSale data.
@@ -199,18 +201,61 @@ Do `MMyToken.deployed().then(function(i){token=i});` to get tokenSale, enter `to
 
 set tokens available `tokenAvailable = 750000`.
 
-set admin account that contians all tokens 
+set admin account that contains all tokens 
 `web3.eth.getAccounts().then(function(acc){ accounts = acc });`
 `admin = accounts[0];`
 
-transfer token from admin account to tokenSale address and a recipt should print.
+transfer token from admin account to tokenSale address and a receipt should print.
 `token.transfer(tokenSale.address, tokenAvailable, {from: admin})`
 
-After transfering tokens from admin account to tokensSaleContract, admins account should have 250000 tokens and this amount should display in our MyToken ICO SALE page.
+After transferring tokens from admin account to tokensSaleContract, admin account should have 250000 tokens and this amount should display in our MyToken ICO SALE page.
 
 Check balance `token.balanceOf(tokenSale.address)`
 
 </details>
+
+### Deploying to Rinkeby Test Network With Geth
+
+There are different test networks we can use. We will be using the Rinkeby Test Network.
+
+First we need to connect our Geth node to the test network.
+
+Unlike Ganache, Geth is a full blown Ethereum node and we will use it to connect to the Rinkeby test network. As a node when we are connected to the ETH network we are participating in the network.
+
+run our Geth node with the rinkeby network by doing:
+`geth --rinkeby --http --http.api="personal,eth,network,web3,net" --ipcpath "~/Library/Ethereum/geth.ipc"`
+specify libraries that we want to use with http.api and the installation path with ipcpath. When we connect to the rinkeby network we need to get all the data and wait for it to download. So after running command for the first time there will significant activity and it will need **a lot of disk space**. 
+
+open the console with `geth attach`. 
+Run `eth.synching`, our current block number should sync up to the highest block number. That way we know our node has completely synced with the network.
+
+create a new account on the Rinkeby network with `geth --rinkeby account new` this will give you an account address.
+
+my address -> 0x59e700901aF64155015F177231b47f4E553bf017
+
+Since we cannot mine Ether on the Rinkeby test network (since its only a test network), we need to request Ether from a Rinkeby Ether Faucet. This way we can fund our accounts to deploy our smart contracts. A faucet is a smart contract that can dispense Ether. Go to `faucet.rinkeby.io` to request Ether to your account address.
+
+use `eth.balanceOf(accounts[0])` to check accounts balance
+
+Make sure to have your truffle project configured to deploy our contracts to the Rinkeby network.
+
+we need to unlock our account in order to deploy, basically giving our account permission to deploy.
+`personal.unlockAccount(eth.accounts[0], null, 1200)`, here we use the personal library, account 0, null password (it will ask you for a password again) and the account will be unlocked for 1200 seconds.
+
+Geth has to be done syncing in order to deploy contracts. Check using `eth.syncing`, it should return false. 
+
+
+Do `truffle migrate --reset --compile-all --network rinkeby`
+We configured the network in our truffle-config file. So, it knows to use the rinkeby network. After our contracts migrate you should see the transactions in the Geth node sync process. They also will be reflected in our contrats .json file. 
+
+We will need to give our tokensale contrat some tokens on the Rinkeby network. So first we will need a deployed instance of our token sale contract so we can transfer tokens. We do this in the Geth console with the Web3 library.
+
+First, open the geth console by doing `geth attach`, and then we keep track of our admin by `var admin = eth.accounts[0]`.
+
+Set `var tokensAvailable = 750000`. Get the tokensSale address which we can find in contracts/MyTokenSale.json. In the networks array and is the address value for the Rinkeby network port 4 key.
+
+set `var tokenSaleAddress = 0x0`.
+
 
 ### Notes
 
@@ -225,7 +270,7 @@ After deploying the contracts your new ETH balance will be reflected on Ganache.
 
 Just like wallets can have tokens, so can smart contracts. We have to give our token sale contract tokens.
 
-Metamask will help our browser comunitcate with the blockchain because most browsers by default wont talk to the blockchain.
+Metamask will help our browser communicate with the blockchain because most browsers by default won't talk to the blockchain.
 Metamask will talk to web3, injecting an http provider into our browser that allows our browser to communicate with our client side that will talk to the blockchain.
 
 We use truffle-contract as a dependency for our client side and it will hepl use interact with contracts. Truffle contract will know how to use our contracts JSON files and its ABI's.
@@ -245,10 +290,14 @@ We use truffle-contract as a dependency for our client side and it will hepl use
 [DSMath for safe arithmetic](https://github.com/dapphub/ds-math)
 [lite-server](https://github.com/johnpapa/lite-server)
 [Bootstrap CDn version 3.3](https://getbootstrap.com/docs/3.3/getting-started/#download)
+[Go Ethereum](https://github.com/ethereum/go-ethereum)
 
 [Guide that I followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
 
 ["Interacting with Deployed Ethereum Contracts in Truffle"](https://medium.com/@blockchain101/interacting-with-deployed-ethereum-contracts-in-truffle-39d7c7040455)
 
 [Javascript promises](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
+
+[Geth HTTP/RPC-related options](https://ethereum.stackexchange.com/questions/97324/go-ethereum-geth-run-error-flag-provided-but-not-defined-http-port)
+
 
