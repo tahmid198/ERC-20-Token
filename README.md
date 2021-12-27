@@ -1,4 +1,4 @@
-## Ξ ERC-20 Token 
+## ERC-20 Token Ξ
 
 ### Background
 
@@ -311,15 +311,17 @@ We use truffle-contract as a dependency for our client side and it will hepl use
 
 [Go Ethereum](https://github.com/ethereum/go-ethereum)
 
-[Guide that I followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
-
 ["Interacting with Deployed Ethereum Contracts in Truffle"](https://medium.com/@blockchain101/interacting-with-deployed-ethereum-contracts-in-truffle-39d7c7040455)
 
 [Javascript promises](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
 
 [Geth HTTP/RPC-related options](https://ethereum.stackexchange.com/questions/97324/go-ethereum-geth-run-error-flag-provided-but-not-defined-http-port)
 
-<br/>
+[Guide that I followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
+
+
+ ---------------------------------------------------------------------------------------------------
+
 
 Lots of thanks and credit to Gregory McCubbin from Dapp University for making this project possible. 🙏
 
