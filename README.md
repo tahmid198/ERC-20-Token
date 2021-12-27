@@ -211,8 +211,12 @@ We will need to setup the application by provisioning some tokens to the myToken
 > Check balance `token.balanceOf(tokenSale.address)`
 
 </details>
+Purchasing tokens on ICO website:
 
 ![Image Walkthrough](./images/tokenSaleSite.gif)
+
+Showing account balance in Truffle console:
+
 ![Image Walkthrough](./images/newbalanceInTruffle.gif)
 
 ### Deploying to Rinkeby Test Network With Geth
