@@ -76,11 +76,11 @@ To open the console use the `truffle console` command. Truffle console is a JS r
 <summary>How to get totalSupply:</summary>
 <br>
 
-We can then use the `tokenInstance` to find its total supply. 
-`tokenInstance.totalSupply().then(function(s){totalSupply=s})` the `totalSupply` will return the total supply of your token. JavaScript will give us a BigNumber type, since we are returning units that are too large for JS to handle.
-`totalSupply.toNumber()` will also return our total supply. 
+> We can then use the `tokenInstance` to find its total supply. 
+> `tokenInstance.totalSupply().then(function(s){totalSupply=s})` the `totalSupply` will return the total supply of your token. JavaScript will give us a BigNumber type, since we are returning units that are too large for JS to handle.
+> `totalSupply.toNumber()` will also return our total supply. 
 
-When our `MyToken.sol` contract got deployed our constructor was executed which took `_initalSupply` as a parameter and set the `totalSupply` with it. `_initalSupply` was passed in our `_deploy_contracts.js`.
+> When our `MyToken.sol` contract got deployed our constructor was executed which took `_initalSupply` as a parameter and set the `totalSupply` with it. `_initalSupply` was passed in our `_deploy_contracts.js`.
 In the same constructor we also set the initial supply equal to the balance of the administrator, the one that deployed it.
 </details>
 
@@ -89,16 +89,16 @@ In the same constructor we also set the initial supply equal to the balance of t
 <summary>How to get addresses and using web3:</summary>
 <br>
 
-web3 is a library that allows us to interact with the blockchain.
+> web3 is a library that allows us to interact with the blockchain.
 
-Use `web3.eth.accounts()` to see all accounts/addresses that are available. 
+>Use `web3.eth.accounts()` to see all accounts/addresses that are available. 
 
-`web3.eth.accounts[0]` will show the account found at index 0 of accounts. 
+> `web3.eth.accounts[0]` will show the account found at index 0 of accounts. 
 
-Use of `web3.eth.accounts()` and `web3.eth.accounts[0]` is deprecated in newer versions of Solidity. Instead use `accounts = web3.eth.getAccounts()` and `web3.eth.getAccounts().then(function(s) {first = s[0];});` then, `first` respectively to get address of first.
+> Use of `web3.eth.accounts()` and `web3.eth.accounts[0]` is deprecated in newer versions of Solidity. Instead use `accounts = web3.eth.getAccounts()` and `web3.eth.getAccounts().then(function(s) {first = s[0];});` then, `first` respectively to get address of first.
 
-Doing `web3.eth.getAccounts().then(function(acc){ accounts = acc })`, then `accounts[0]` `accounts[1]`, etc.
-will give account addresses by index. 
+> Doing `web3.eth.getAccounts().then(function(acc){ accounts = acc })`, then `accounts[0]` `accounts[1]`, etc.
+> will give account addresses by index. 
 
 </details>
 
@@ -107,13 +107,13 @@ will give account addresses by index.
 <summary>How to check balance:</summary>
 <br>
 
-First we need to get an account to its check balance .
-`web3.eth.getAccounts().then(function(s) {admin = s[0];});`, admin will contain our account address. 
-Note: admin is the address that contains the initial supply, this is the 0 index, because Ganache uses the first address (0 index) as default.
+> First we need to get an account to its check balance .
+> `web3.eth.getAccounts().then(function(s) {admin = s[0];});`, admin will contain our account address. 
+> Note: admin is the address that contains the initial supply, this is the 0 index, because Ganache uses the first address (0 index) as default.
 
-We can then do `tokenInstance.balanceOf(admin)` to view the supply of admin.
+> We can then do `tokenInstance.balanceOf(admin)` to view the supply of admin.
 
-`tokenInstance.balanceOf(admin).then(function(bal){balance = bal;})`, then `balance.toNumber()` to also view the supply of admin.
+> `tokenInstance.balanceOf(admin).then(function(bal){balance = bal;})`, then `balance.toNumber()` to also view the supply of admin.
 
 </details>
 
@@ -123,12 +123,12 @@ We can then do `tokenInstance.balanceOf(admin)` to view the supply of admin.
 <summary>Transfers</summary>
 <br>
 
-First we get an account that will receive tokens from the transfer. 
-`web3.eth.getAccounts().then(function(s) {receiver = s[1];});`, this will set our receiver to the address at s[1].
+> First we get an account that will receive tokens from the transfer. 
+> `web3.eth.getAccounts().then(function(s) {receiver = s[1];});`, this will set our receiver to the address at s[1].
 
-We can then call a transfer by doing `tokenInstance.transfer(receiver, 1, {from:admin})`. This transfers one token from the admin account to the receiver's account. On completion it will print a receipt.
+> We can then call a transfer by doing `tokenInstance.transfer(receiver, 1, {from:admin})`. This transfers one token from the admin account to the receiver's account. On completion it will print a receipt.
 
-We can then check the balance of the receiver, which has increased by 1, with `tokenInstance.balanceOf(receiver)` and the balance of admin, which has decreased by 1, by  `tokenInstance.balanceOf(admin)` which has decreased by 1.
+> We can then check the balance of the receiver, which has increased by 1, with `tokenInstance.balanceOf(receiver)` and the balance of admin, which has decreased by 1, by  `tokenInstance.balanceOf(admin)` which has decreased by 1.
 
 </details>
 
@@ -137,12 +137,12 @@ We can then check the balance of the receiver, which has increased by 1, with `t
 <summary>Approvals</summary>
 <br>
 
-First do, `web3.eth.getAccounts().then(function(acc){ accounts = acc })` to access account addresses by index. 
+> First do, `web3.eth.getAccounts().then(function(acc){ accounts = acc })` to access account addresses by index. 
 
-`tokenInstance.approve(accounts[1], 100, {from: admin})` will trigger an approval on accounts[1] for 100 tokens and create a receipt. 
+> `tokenInstance.approve(accounts[1], 100, {from: admin})` will trigger an approval on accounts[1] for 100 tokens and create a receipt. 
 
-`tokenInstance.allowance(accounts[0], accounts[1])` to check allowance that was approved for expenditure. This is saying accounts[1] is allowed to spend a certain amount of tokens on accounts[0] behalf. Following the syntax of 
-- `mapping(address => mapping(address => uint256)) public allowance` 
+> `tokenInstance.allowance(accounts[0], accounts[1])` to check allowance that was approved for expenditure. This is saying accounts[1] is allowed to spend a certain amount of tokens on accounts[0] behalf. Following the syntax of 
+> `mapping(address => mapping(address => uint256)) public allowance` 
 </details>
 
 
@@ -152,24 +152,21 @@ First do, `web3.eth.getAccounts().then(function(acc){ accounts = acc })` to acce
 <summary>Delegated Transfers</summary>
 <br>
 
-First do, `web3.eth.getAccounts().then(function(acc){ accounts = acc })` to access account addresses by index.
+> First do, `web3.eth.getAccounts().then(function(acc){ accounts = acc })` to access account addresses by index.
 
-Set addresses for a fromAccount, toAccount, and spendingAccount
-`fromAccount = accounts[2]
-toAccount = accounts[3]
-spendingAccount = accounts[4]`
-Next, transfer tokens to your fromAccount by doing `tokenInstance.transfer(fromAccount, 100, {from: accounts[0]})` and check that it has tokens by doing `tokenInstance.balanceOf(fromAccount)`
+> Set addresses for a fromAccount, toAccount, and spendingAccount
+> `fromAccount = accounts[2]`
+> `toAccount = accounts[3]`
+> `spendingAccount = accounts[4]`
+> Next, transfer tokens to your fromAccount by doing `tokenInstance.transfer(fromAccount, 100, {from: accounts[0]})` and check that it has tokens by doing `tokenInstance.balanceOf(fromAccount)`
 
-Then, we will need to approve spendingAccount to spend tokens on the fromAccounts behalf. We will do this by doing: `tokenInstance.approve(spendingAccount, 10, {from: fromAccount})`.
+> Then, we will need to approve spendingAccount to spend tokens on the fromAccounts behalf. We will do this by doing: `tokenInstance.approve(spendingAccount, 10, {from: fromAccount})`.
 
-Lastly, we will trigger the delegated transfer by: `tokenInstance.transferFrom(fromAccount, toAccount, 10, {from: spendingAccount})`
+> Lastly, we will trigger the delegated transfer by: `tokenInstance.transferFrom(fromAccount, toAccount, 10, {from: spendingAccount})`
 
-Allowance of `spendingAccount` should not be 0. You can check by doing `tokenInstance.allowance(fromAccount, spendingAccount)` and the balance of `toAccount` should have increased by 10. You can check by doing `tokenInstance.balanceOf(toAccount)`.
+> Allowance of `spendingAccount` should not be 0. You can check by doing `tokenInstance.allowance(fromAccount, spendingAccount)` and the balance of `toAccount` should have increased by 10. You can check by doing `tokenInstance.balanceOf(toAccount)`.
 
 </details>
-
-
-
 
 Use `.exit` to exit the console.
 
@@ -183,9 +180,9 @@ Testing smart contracts is very important. Smart contracts and the blockchain ar
 
 ### Client Side
 
-`npm run dev` to run server
+Use `npm run dev` to run server.
 
-Connect to local network with Metamask. You will need to create a Metamask account and create a Custom RPC and enter your Ganace URL with port and save it inorder to connect to Ganace.
+Connect to your local network with Metamask. You will need to create a Metamask account and create a Custom RPC with your Ganace URL and port to connect to Ganace.
 
 You will also need to import an account using a Ganace private key.
 
@@ -196,24 +193,27 @@ We will need to setup the application by provisioning some tokens to the myToken
 <summary>Transferring tokens to tokenSale contract</summary>
 <br>
 
-Do `MyTokenSale.deployed().then(function(i){tokenSale=i});` to get tokenSale, enter `tokenSale` to view tokenSale data.
+> Do `MyTokenSale.deployed().then(function(i){tokenSale=i});` to get tokenSale, enter `tokenSale` to view tokenSale data.
 
-Do `MMyToken.deployed().then(function(i){token=i});` to get tokenSale, enter `token` to view tokenSale data.
+> Do `MyToken.deployed().then(function(i){token=i});` to get tokenSale, enter `token` to view tokenSale data.
 
-set tokens available `tokenAvailable = 750000`.
+> set tokens available `tokenAvailable = 750000`.
 
-set admin account that contains all tokens 
-`web3.eth.getAccounts().then(function(acc){ accounts = acc });`
-`admin = accounts[0];`
+> set admin account that contains all tokens 
+> `web3.eth.getAccounts().then(function(acc){ accounts = acc });`
+> `admin = accounts[0];`
 
-transfer token from admin account to tokenSale address and a receipt should print.
-`token.transfer(tokenSale.address, tokenAvailable, {from: admin})`
+> transfer token from admin account to tokenSale address and a receipt should print.
+>`token.transfer(tokenSale.address, tokenAvailable, {from: admin})`
 
-After transferring tokens from admin account to tokensSaleContract, admin account should have 250000 tokens and this amount should display in our MyToken ICO SALE page.
+> After transferring tokens from admin account to tokensSaleContract, admin account should have 250000 tokens and this amount should display in our MyToken ICO SALE page.
 
-Check balance `token.balanceOf(tokenSale.address)`
+> Check balance `token.balanceOf(tokenSale.address)`
 
 </details>
+
+![Image Walkthrough](./images/tokenSaleSite.gif)
+![Image Walkthrough](./images/newbalanceInTruffle.gif)
 
 ### Deploying to Rinkeby Test Network With Geth
 
@@ -262,7 +262,7 @@ set `var tokenSaleAddress = 0x0`.
 
 All functions and variables **must** follow the naming convention as shown in the [ERC-20 token standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
 
-Smart contracts is code that gets executed on the blockchain. It will be where the logic of your token and token sale will live. Reading, writing, behavior (buy, sale, transfer, etc), basic attributes (name, symbol, price, supply, etc) all exist in the contract.
+Smart contracts are code that gets executed on the blockchain. It will be where the logic of your token and token sale will live. Reading, writing, behavior (buy, sale, transfer, etc), basic attributes (name, symbol, price, supply, etc) all exist in the contract.
 
 To run migrations use `truffle migrate`  on the terminal. You can use the `--reset` flag if needed. 
 
@@ -283,22 +283,16 @@ We use truffle-contract as a dependency for our client side and it will hepl use
 ### Resources
 
 [ERC-20 token standard  ](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
-
 [Solidity v0.5.16 Documentation](https://docs.soliditylang.org/en/v0.5.16/)
 [Solidity Documentation](https://docs.soliditylang.org/en/develop/)
-
 [Truffle Suite Documentation](https://trufflesuite.com/docs/index.html)
 [DSMath for safe arithmetic](https://github.com/dapphub/ds-math)
 [lite-server](https://github.com/johnpapa/lite-server)
 [Bootstrap CDn version 3.3](https://getbootstrap.com/docs/3.3/getting-started/#download)
 [Go Ethereum](https://github.com/ethereum/go-ethereum)
-
 [Guide that I followed](https://www.youtube.com/watch?v=044h0ZI-fDI&list=PLS5SEs8ZftgWFuKg2wbm_0GLV0Tiy1R-n&index=3)
-
 ["Interacting with Deployed Ethereum Contracts in Truffle"](https://medium.com/@blockchain101/interacting-with-deployed-ethereum-contracts-in-truffle-39d7c7040455)
-
 [Javascript promises](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
-
 [Geth HTTP/RPC-related options](https://ethereum.stackexchange.com/questions/97324/go-ethereum-geth-run-error-flag-provided-but-not-defined-http-port)
 
 
