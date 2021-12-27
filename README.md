@@ -1,35 +1,34 @@
-## ERC-20 Token
+## Ξ ERC-20 Token 
 
 ### Background
 
 Ethereum allows you to build your own cryptocurrency on their blockchain with a standard called [ERC-20 token standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md). ERC-20 is an API standard that governs how an Ethereum token should be built. This standard allows you to mint your own token, transfer it between wallets, and hold an initial token sale. This standard also allows your token to be accepted across various applications. This means support across different wallets and different cryptocurrency exchanges. 
 
-We will be building out the required functionality specified with this standard so our token is compliant with the ERC20 standard and deploy it on a test network (not the main Ethereum network) so we do not have to worry about cost.
+We will be building out the required functionality specified with this standard so our token is compliant with the ERC20 standard. To do this we will use Ganache for rapid blockchain testing on our local machine, along with the Truffle framework to build smart contracts for our token. We will then create a token sale where users can buy our tokens and then deploy Rinkeby test network (not the main Ethereum network) so we do not have to worry about gas cost.
 
-Your token, token sale, client side and backend will be on the blockchain and decentralized. 
+Our token, token sale, client side and backend will be on the blockchain and decentralized. 
 
 ### Dependencies
 
-1. node package manager (npm) (install from node js website or with a command line tool like homebrew, type `brew install node`).
-2. Truffle framework will allow us to create decentralized applications on the Ethereum network with its suite of tools so we can write, test, and deploy smart contracts. (To install go to command and type `npm install -g truffle`).
-3. Ganache, is your local personal blockchain that you can use for testing purposes. (Install directly from their website).
-4. Metamask, a browser extension that allows you to connect to the Ethereum network. Allowing us to talk to the blockchain from our browser(Found on Chrome browser).
-5. Solidity syntax highlighting (you can use Ethereum from Package Control for Sublime 2/3)
-6. lite-server is used as our development server.
-7. Bootstrap CDN
-8. Web3 library so our client can communicate with the blockchain
-9. truffle-contract: a js library that allows us to interact with our contracts
-10. Go Ethereum (Geth), a Go implementation of Ethereum. (you can install with homebrew by doing `brew tap ethereum/ethereum`, and then `brew install ethereum`). Do `which geth` and `get version` to check it downloaded properly
+- node package manager (npm) (install from node js website or with a command line tool like homebrew, type `brew install node`).
+- Truffle framework will allow us to create decentralized applications on the Ethereum network with its suite of tools so we can write, test, and deploy smart contracts. (To install go to command and type `npm install -g truffle`).
+- Ganache, is your local personal blockchain that you can use for testing purposes. (Install directly from their website).
+- Metamask, a browser extension that allows you to connect to the Ethereum network. Allowing us to talk to the blockchain from our browser (Found on Chrome browser).
+- Solidity syntax highlighting (you can use Ethereum from Package Control for Sublime 2/3)
+- lite-server is used as our development server.
+- Bootstrap CDN
+- Web3 library so our client can communicate with the blockchain
+- truffle-contract, a JS library that allows us to interact with our contracts
+- Go Ethereum (Geth), a Go implementation of Ethereum. (you can install with homebrew by doing `brew tap ethereum/ethereum`, and then `brew install ethereum`). Do `which geth` and `get version` to check it downloaded properly
 
-
-
-`npm run dev` to run server
 
 Use `truffle init` in the command line within your project directory to create a new truffle project. This will create your contract, migration, and test directories including some configuration files.
 
 <!-- ### Build
 
 the approve function will let us approve a delegated transfer, the amount being transferred will be stored in an allowance. transferForm will allow us to execute that transfer.  --> 
+
+
 
 ### File Breakdown
 
@@ -50,7 +49,7 @@ Make sure to first set *Development Configurations* in your truffle-config file.
 
 ### Truffle Console
 
-To open the console use the `truffle console`command. Truffle console is a JS runtime environment used to interact with contracts. Because smart contracts are asynchronous in nature, they will rely upon the usage of JavaScript promises.
+To open the console use the `truffle console` command. Truffle console is a JS runtime environment used to interact with contracts. Because smart contracts are asynchronous in nature, they will rely upon the usage of JavaScript promises.
 
 #### Examples Within Truffle Console: 
 
@@ -58,19 +57,19 @@ To open the console use the `truffle console`command. Truffle console is a JS ru
 
 
 <details>
-<summary>How to get attributes of contract:</summary>
+<summary>How to get attributes of a contract:</summary>
 <br>
 
-First create a tokenInstance by doing,`MyToken.deployed().then(function(instance){tokenInstance=instance})`, `MyToken.deployed()` will give us a deployed instance of our contract. We then save the value of that instance into the variable `tokenInstance`. `.deployed()` will return a promise, when the promise completes we call the `then()` function. We will get a deployed instance of our contract and set it to `tokenInstance`. Note, `MyToken` was created in our migrations.
+> First create a tokenInstance by doing,`MyToken.deployed().then(function(instance){tokenInstance=instance})`, `MyToken.deployed()` will give us a deployed instance of our contract. We then save the value of that instance into the variable `tokenInstance`. `.deployed()` will return a promise, when the promise completes we call the `then()` function. We will get a deployed instance of our contract and set it to `tokenInstance`. Note, `MyToken` was created in our migrations.
 
-We can also view the token instance by entering `tokenInstance` into our console.
+> We can also view the token instance by entering `tokenInstance` into our console.
 
-After we have the instance of our contract we can use `tokenInstance.address` to get the address of our smart contract. 
+> After we have the instance of our contract we can use `tokenInstance.address` to get the address of our smart contract. 
 
-All the following were declared in our `MyToken.sol` file:
-`tokenInstance.name()` will return the name of our token.
-`tokenInstance.symbol()` will return the symbol of our token.
-`tokenInstance.standard()` will return the standard of our token.
+> All the following were declared in our `MyToken.sol` file:
+> `tokenInstance.name()` will return the name of our token.
+> `tokenInstance.symbol()` will return the symbol of our token.
+> `tokenInstance.standard()` will return the standard of our token.
 </details>
 
 <details>
@@ -183,6 +182,8 @@ To test run use `truffle test`.
 Testing smart contracts is very important. Smart contracts and the blockchain are meant to be immutable. So it is important that they are bug free. If they are deployed with a bug, then we will have to disable it and then deploy another.
 
 ### Client Side
+
+`npm run dev` to run server
 
 Connect to local network with Metamask. You will need to create a Metamask account and create a Custom RPC and enter your Ganace URL with port and save it inorder to connect to Ganace.
 
